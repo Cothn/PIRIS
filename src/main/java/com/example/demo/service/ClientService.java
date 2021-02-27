@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface ClientService {
 
-    public List<Client> allClients();
+    public List<Client> allClients(int page);
 
+    int getClientsCount();
 
     public void add(Client client);
 

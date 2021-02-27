@@ -1,17 +1,16 @@
 package com.example.demo.dao.hibernate;
 
-import com.example.demo.dao.ClientDAO;
-import com.example.demo.entity.Client;
+import com.example.demo.dao.NationalityDAO;
+import com.example.demo.entity.Nationality;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
-public class ClientDAOImpl implements ClientDAO {
+public class NationalityDAOImpl implements NationalityDAO {
 
 
     private SessionFactory sessionFactory;
@@ -24,39 +23,38 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Client> allClients(int page) {
+    public List<Nationality> allNationalities() {
         Session session = this.sessionFactory.getCurrentSession();
-        return (List<Client>)session.createQuery("from Client").setFirstResult(10 * (page - 1)).setMaxResults(10).list();
+        return (List<Nationality>)session.createQuery("from Nationality").list();
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public int clientsCount() {
+    public int nationalitiesCount() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select count(*) from Client", Number.class).getSingleResult().intValue();
+        return session.createQuery("select count(*) from Nationality", Number.class).getSingleResult().intValue();
     }
 
     @Override
-    public void add(Client client) {
+    public void add(Nationality nationality) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(client);
+        session.persist(nationality);
     }
 
     @Override
-    public void delete(Client client) {
+    public void delete(Nationality nationality) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(client);
+        session.delete(nationality);
     }
 
     @Override
-    public void edit(Client client) {
+    public void edit(Nationality nationality) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(client);
+        session.update(nationality);
     }
 
     @Override
-    public Client getById(int id) {
+    public Nationality getById(int id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Client.class, id);
+        return session.get(Nationality.class, id);
     }
 }

@@ -914,8 +914,9 @@
     <table id="292" parent="2" name="town"/>
     <column id="293" parent="288" name="id">
       <Position>1</Position>
-      <DataType>varchar(45)|0s</DataType>
+      <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="294" parent="288" name="surname">

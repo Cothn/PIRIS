@@ -9,12 +9,12 @@ public class FamilyStatus {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private Long id;
+    private int id;
 
     @Column(name = "title", length = 45, nullable = false)
     private String title;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

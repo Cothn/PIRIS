@@ -24,8 +24,14 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
-    public List<Client> allClients() {
-        return clientDAO.allClients();
+    public List<Client> allClients(int page) {
+        return clientDAO.allClients(page);
+    }
+
+    @Override
+    @Transactional
+    public int getClientsCount() {
+        return clientDAO.clientsCount();
     }
 
     @Override

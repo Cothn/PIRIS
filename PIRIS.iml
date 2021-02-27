@@ -6,7 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="PIRIS" />
+          <factory-entry name="PIRIS" value="1b617d9b-48ab-4971-bc21-838c485a318f" />
           <factory-entry name="entityManagerFactory" value="1b617d9b-48ab-4971-bc21-838c485a318f" />
         </datasource-mapping>
         <naming-strategy-map />

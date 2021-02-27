@@ -10,7 +10,7 @@ public class Client {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private Long id;
+    private int id;
 
     @Column(name = "surname", length = 45, nullable = false)
     private String surname;
@@ -25,7 +25,7 @@ public class Client {
     private Date birthDate;
 
     @Column(name = "passportSeries", length = 45, nullable = false)
-    private String passport;
+    private String passportSeries;
 
     @Column(name = "passportNumber", length = 45, nullable = false)
     private String passportNumber;
@@ -80,8 +80,8 @@ public class Client {
     @JoinColumn(name = "disability_id", nullable = false)
     private Disability disability;
 
-    @Column(name = "pensioner", length = 45, nullable = false)
-    private String pensioner;
+    @Column(name = "pensioner", nullable = false)
+    private Boolean pensioner;
 
     @Column(name = "monthlyIncome", length = 45, nullable = true)
     private String monthlyIncome;
@@ -89,7 +89,7 @@ public class Client {
     public Client() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -125,12 +125,12 @@ public class Client {
         this.birthDate = birthDate;
     }
 
-    public String getPassport() {
-        return passport;
+    public String getPassportSeries() {
+        return passportSeries;
     }
 
-    public void setPassport(String passport) {
-        this.passport = passport;
+    public void setPassportSeries(String passport) {
+        this.passportSeries = passport;
     }
 
     public String getPassportNumber() {
@@ -239,11 +239,11 @@ public class Client {
 
 
 
-    public String getPensioner() {
+    public Boolean getPensioner() {
         return pensioner;
     }
 
-    public void setPensioner(String pensioner) {
+    public void setPensioner(Boolean pensioner) {
         this.pensioner = pensioner;
     }
 

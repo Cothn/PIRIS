@@ -9,7 +9,7 @@ public class Nationality {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private Long id;
+    private int id;
 
     @Column(name = "title", length = 100, nullable = false)
     private String title;
@@ -22,7 +22,7 @@ public class Nationality {
         this.title = title;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 }

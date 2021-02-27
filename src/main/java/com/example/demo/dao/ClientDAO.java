@@ -5,9 +5,10 @@ import com.example.demo.entity.Client;
 import java.util.List;
 
 public interface ClientDAO {
-    List<Client> allClients();
+    List<Client> allClients(int page);
     void add(Client client);
     void delete(Client client);
     void edit(Client client);
     Client getById(int id);
+    int clientsCount() ;
 }
