@@ -6,10 +6,7 @@ import com.example.demo.service.implementation.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -58,7 +55,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String showBankClientss(@RequestParam(defaultValue = "1") int page, Model model) {
+    public String showBankClients(@RequestParam(defaultValue = "1") int page, Model model) {
         List<Client> clients = clientService.allClients(page);
 
         int clientsCount = clientService.getClientsCount();
@@ -90,5 +87,11 @@ public class ClientController {
         model.addAttribute("allNationalities", nationalities);
 
         return "clientEditPage";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String  editClient(@ModelAttribute("clientInfo") Client client, Model model) {
+        clientService.edit(client);
+        return "redirect:/clients";
     }
 }
