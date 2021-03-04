@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("clients")
@@ -69,6 +70,31 @@ public class ClientController {
         return "clientsPage";
     }
 
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String addPage(Model model) {
+
+        List<Town> towns = townService.allTowns();
+        model.addAttribute("allTowns", towns);
+
+        List<FamilyStatus> familyStatuses = familyStatusService.allFamilyStatuses();
+        model.addAttribute("allFamilyStatuses", familyStatuses);
+
+        List<Disability> disabilities = disabilityService.allDisabilities();
+        model.addAttribute("allDisabilities", disabilities);
+
+        List<Nationality> nationalities = nationalityService.allNationalities();
+        model.addAttribute("allNationalities", nationalities);
+
+        return "clientAddPage";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String  addClient(@ModelAttribute("clientInfo") Client client) {
+        client.setPensioner(!Objects.isNull(client.getPensioner()));
+        clientService.add(client);
+        return "redirect:/clients";
+    }
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String getClientEditPage(@PathVariable("id") int id, Model model) {
         Client client = clientService.getById(id);
@@ -90,8 +116,16 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String  editClient(@ModelAttribute("clientInfo") Client client, Model model) {
+    public String  editClient(@ModelAttribute("clientInfo") Client client) {
+        client.setPensioner(!Objects.isNull(client.getPensioner()));
         clientService.edit(client);
+        return "redirect:/clients";
+    }
+
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+    public String deleteClient(@PathVariable("id") int id) {
+        Client client = clientService.getById(id);
+        clientService.delete(client);
         return "redirect:/clients";
     }
 }

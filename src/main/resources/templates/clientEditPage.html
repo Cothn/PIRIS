@@ -20,7 +20,7 @@
 <!-- Include _menu.html -->
 <th:block th:include="/_menu"></th:block>
 
-<h2>Accounts</h2>
+<h2>Edit client</h2>
 
     <form th:action="@{/clients/edit}" th:object="${clientInfo}" method="POST">
         <input type="hidden" required name="id" th:field="*{id}"><br>
@@ -119,7 +119,7 @@
 
         </select><br>
         <label for="pensioner" >pensioner</label>
-        <input type="checkbox" id="pensioner" th:field="*{pensioner}"><br>
+        <input type="checkbox" id="pensioner" th:value="*{pensioner}"><br>
         <label for="monthlyIncome">monthlyIncome</label>
         <input type="text" pattern="^\d+(\.\d+)?$" id="monthlyIncome" th:field="*{monthlyIncome}"><br>
         <input type="submit"  value="Edit client">

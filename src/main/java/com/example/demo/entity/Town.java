@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Town {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 

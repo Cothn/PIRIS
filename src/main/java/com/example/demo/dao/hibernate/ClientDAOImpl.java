@@ -39,7 +39,7 @@ public class ClientDAOImpl implements ClientDAO {
     @Override
     public void add(Client client) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(client);
+        session.save(client);
     }
 
     @Override
