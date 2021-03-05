@@ -42,6 +42,31 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
+    public boolean checkByPassport(Client client) {
+        List<Client> clients = clientDAO.allClients();
+        for (Client cl : clients){
+            if(cl.getPassportSeries().equalsIgnoreCase(client.getPassportSeries()) &&
+                    cl.getPassportNumber().equalsIgnoreCase(client.getPassportNumber()) &&
+                            (cl.getId() != client.getId()))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean checkByIdentifyNumber(Client client) {
+        List<Client> clients = clientDAO.allClients();
+        for (Client cl : clients){
+            if(cl.getIdentificationNumber().equalsIgnoreCase(client.getIdentificationNumber()) &&
+                (cl.getId() != client.getId()))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
     public void delete(Client client) {
         clientDAO.delete(client);
     }

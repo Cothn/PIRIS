@@ -2,12 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.*;
 import com.example.demo.service.*;
-import com.example.demo.service.implementation.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +69,10 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addPage(Model model) {
+    public String addPage( @RequestParam(required = false) String message, Model model) {
+        if(!Objects.isNull(message)) {
+            model.addAttribute("message", message);
+        }
 
         List<Town> towns = townService.allTowns();
         model.addAttribute("allTowns", towns);
@@ -90,14 +91,30 @@ public class ClientController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String  addClient(@ModelAttribute("clientInfo") Client client) {
-        client.setPensioner(!Objects.isNull(client.getPensioner()));
+        Boolean pensioner= client.getPensioner();
+        client.setPensioner(!Objects.isNull(pensioner));
+        if(client.getMonthlyIncome().isEmpty())
+            client.setMonthlyIncome(null);
+
+        if(clientService.checkByPassport(client)){
+            return "redirect:add"+"?message=passport must be unique";
+        }
+        else if(clientService.checkByIdentifyNumber(client)){
+            return "redirect:add"+"?message=identifyNumber must be unique";
+        }
         clientService.add(client);
         return "redirect:/clients";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String getClientEditPage(@PathVariable("id") int id, Model model) {
+    public String getClientEditPage(@PathVariable("id") int id,
+                                    @RequestParam(required = false) String message, Model model) {
+        if(!Objects.isNull(message)) {
+            model.addAttribute("message", message);
+        }
+
         Client client = clientService.getById(id);
+
         model.addAttribute("clientInfo", client);
 
         List<Town> towns = townService.allTowns();
@@ -116,9 +133,21 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String  editClient(@ModelAttribute("clientInfo") Client client) {
-        client.setPensioner(!Objects.isNull(client.getPensioner()));
+    public String  editClient(@ModelAttribute("clientInfo") Client client, Model model) {
+        Boolean pensioner= client.getPensioner();
+        client.setPensioner(!Objects.isNull(pensioner));
+        if(client.getMonthlyIncome().isEmpty())
+            client.setMonthlyIncome(null);
+
+        if(clientService.checkByPassport(client)){
+            return "redirect:edit/"+client.getId()+"?message=passport must be unique";
+        }
+        else if(clientService.checkByIdentifyNumber(client)){
+            return "redirect:edit/"+client.getId()+"?message=identifyNumber must be unique";
+        }
         clientService.edit(client);
+
+
         return "redirect:/clients";
     }
 

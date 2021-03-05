@@ -22,6 +22,12 @@
 
 <h2>Edit client</h2>
 
+<script th:if="${message}" th:inline="javascript">
+    var message = /*[[${message}]]*/ 'default';
+    alert(message);
+</script>
+
+
     <form th:action="@{/clients/edit}" th:object="${clientInfo}" method="POST">
         <input type="hidden" required name="id" th:field="*{id}"><br>
         <label for="name">Name</label>
@@ -119,9 +125,9 @@
 
         </select><br>
         <label for="pensioner" >pensioner</label>
-        <input type="checkbox" id="pensioner" th:value="*{pensioner}"><br>
+        <input type="checkbox" id="pensioner" th:field="*{pensioner}"><br>
         <label for="monthlyIncome">monthlyIncome</label>
-        <input type="text" pattern="^\d+(\.\d+)?$" id="monthlyIncome" th:field="*{monthlyIncome}"><br>
+        <input type="text" pattern="(^\d+(\.\d+)?$)|(^$)" id="monthlyIncome" th:field="*{monthlyIncome}"><br>
         <input type="submit"  value="Edit client">
     </form>
 

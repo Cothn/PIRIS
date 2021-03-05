@@ -31,6 +31,13 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     @SuppressWarnings("unchecked")
+    public List<Client> allClients() {
+        Session session = this.sessionFactory.getCurrentSession();
+        return (List<Client>)session.createQuery("from Client").list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
     public int clientsCount() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("select count(*) from Client", Number.class).getSingleResult().intValue();

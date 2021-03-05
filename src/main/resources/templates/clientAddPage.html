@@ -22,6 +22,11 @@
 
 <h2>Add client</h2>
 
+<script th:if="${message}" th:inline="javascript">
+    var message = /*[[${message}]]*/ 'default';
+    alert(message);
+</script>
+
     <form th:action="@{/clients/add}" th:name="clientInfo" method="POST">
         <label for="name">Name</label>
         <input type="text" pattern="^[A-Za-zА-Яа-я]+$" required id="name" name="name"><br>
@@ -115,7 +120,7 @@
         <label for="pensioner" >pensioner</label>
         <input type="checkbox" id="pensioner" name="pensioner" ><br>
         <label for="monthlyIncome">monthlyIncome</label>
-        <input type="text" pattern="^\d+(\.\d+)?$" id="monthlyIncome" name="monthlyIncome"><br>
+        <input type="text" pattern="(^\d+(\.\d+)?$)|(^$)" id="monthlyIncome" name="monthlyIncome"><br>
         <input type="submit" value="Add client">
     </form>
 

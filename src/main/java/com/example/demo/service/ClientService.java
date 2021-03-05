@@ -13,6 +13,9 @@ public interface ClientService {
 
     public void add(Client client);
 
+    boolean checkByPassport(Client client);
+
+    boolean checkByIdentifyNumber(Client client);
 
     public void delete(Client client);
 
